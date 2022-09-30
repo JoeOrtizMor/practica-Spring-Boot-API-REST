@@ -1,13 +1,20 @@
 package com.sistemas.exmenes;
 
 
+import com.sistemas.exmenes.entidades.Rol;
+import com.sistemas.exmenes.entidades.Usuario;
+import com.sistemas.exmenes.entidades.UsuarioRol;
+import com.sistemas.exmenes.excepciones.UsuarioFoundException;
 import com.sistemas.exmenes.servicios.UsuarioService;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -16,6 +23,9 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner{
     
     @Autowired
     private UsuarioService usuarioService;
+    
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaExamenesBackendApplication.class, args);
@@ -23,12 +33,14 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-       /* Usuario usuario = new Usuario();
+       
+        try{
+             Usuario usuario = new Usuario();
         
         usuario.setNombre("Joe");
         usuario.setApellido("Ortiz");
-        usuario.setUsername("JoeOrt21");
-        usuario.setPassword("password");
+        usuario.setUsername("JoeMorales");
+        usuario.setPassword(bCryptPasswordEncoder.encode("belen"));
         usuario.setEmail("ezio@gmail.com");
         usuario.setTelefono("2871516235");
         usuario.setPerfil("foto.png");
@@ -44,10 +56,15 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner{
         usuarioRoles.add(usuarioRol);
         
         Usuario usuarioGuardado = usuarioService.guardarUsuario(usuario, usuarioRoles);
-        System.out.println(usuarioGuardado.getUsername());*/
+        System.out.println(usuarioGuardado.getUsername());
+            
+        }catch(UsuarioFoundException exception){
+            exception.printStackTrace();
+            
+        }
     }
     
-    @Bean
+    /*@Bean
     public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
                     
@@ -56,6 +73,6 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner{
 				registry.addMapping("/**").allowedOrigins("http://localhost:8080").allowedMethods("*");
 			}
 		};
-	}
+	}*/
 
 }

@@ -53,29 +53,23 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http
-                /*.csrf()
+        http
+                .csrf()
                 .disable() //Desabilitamos el CSRF
                 .cors()
                 .disable()
+                .authorizeRequests()
+                .antMatchers("//swagger-ui/**","/generate-token","/usuarios/").permitAll() //Cualquiera tiene acceso a las direcciones establecidas en el antMatchers 
+                .antMatchers(HttpMethod.OPTIONS).permitAll() //Describe opcones de comunicacion
+                .anyRequest().authenticated() //Cualquier otra peticion que se solicita la va a untenticar mediante el token
                 .and()
-                //.authorizeRequests()
-                .antMatchers("//swagger-ui/**","/generate-token","/usuarios/").permitAll(); //Permitir a cualquiera
-                //.antMatchers("//swagger-ui/**","/generate-token","/usuarios/").permitAll(); //Permitir a cualquiera
-                //.antMatchers(HttpMethod.OPTIONS).permitAll() //Describe opcones de comunicacion
-                //.anyRequest().authenticated() //Cualquier otra peticion que se solicita la va a untenticar mediante el token
-                //.and()
-                //.exceptionHandling().authenticationEntryPoint(unauthorizeHandler) 
-                //.and()
-                //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .exceptionHandling().authenticationEntryPoint(unauthorizeHandler) 
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);*/
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
                 
-                http.cors().and().csrf().disable()
-                .authorizeRequests().antMatchers("/api/auth/*", "/api/", "/swagger-ui/*", "/techgeeknext-openapi/", "/v3/api-docs/*").permitAll()             
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                
         
     }
     

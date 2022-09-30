@@ -33,7 +33,7 @@ public class UsuarioController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
    
-    
+    //Registro de nuevo usuario
     @PostMapping("/")
     public Usuario guardarUsuario(@RequestBody Usuario usuario)throws Exception{//Manda el objeto con sus datos
         usuario.setPerfil("default.png");
@@ -51,7 +51,7 @@ public class UsuarioController {
         usuarioRol.setUsuario(usuario);
         usuarioRol.setRol(rol);
         
-        usuarioRoles.add(usuarioRol);
+        usuarioRoles.add(usuarioRol); //Se agregan la cantidad de usuarios que se desee
         return usuarioService.guardarUsuario(usuario, usuarioRoles);
     }
     

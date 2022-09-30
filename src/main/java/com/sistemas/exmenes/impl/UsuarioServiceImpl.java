@@ -3,6 +3,7 @@ package com.sistemas.exmenes.impl;
 
 import com.sistemas.exmenes.entidades.Usuario;
 import com.sistemas.exmenes.entidades.UsuarioRol;
+import com.sistemas.exmenes.excepciones.UsuarioFoundException;
 import com.sistemas.exmenes.repositorios.RolRepository;
 import com.sistemas.exmenes.repositorios.UsuarioRepository;
 import com.sistemas.exmenes.servicios.UsuarioService;
@@ -25,7 +26,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         Usuario usuarioLocal = usuarioRepository.findByUsername(usuario.getUsername());
        if(usuarioLocal != null ){
            System.out.println("El usuario ya existe");
-           throw new Exception("El usuario ya esta presente");
+           throw new UsuarioFoundException("El usuario ya esta presente");
        } 
        else{
            for(UsuarioRol usuarioRol:usuarioRoles){
