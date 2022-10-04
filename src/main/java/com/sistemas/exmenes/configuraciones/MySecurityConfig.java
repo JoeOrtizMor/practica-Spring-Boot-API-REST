@@ -59,7 +59,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
                 .cors()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("//swagger-ui/**","/generate-token","/usuarios/").permitAll() //Cualquiera tiene acceso a las direcciones establecidas en el antMatchers 
+                .antMatchers("/swagger-ui/**","/generate-token","/usuarios/","/email/send").permitAll() //Cualquiera tiene acceso a las direcciones establecidas en el antMatchers 
                 .antMatchers(HttpMethod.OPTIONS).permitAll() //Describe opcones de comunicacion
                 .anyRequest().authenticated() //Cualquier otra peticion que se solicita la va a untenticar mediante el token
                 .and()

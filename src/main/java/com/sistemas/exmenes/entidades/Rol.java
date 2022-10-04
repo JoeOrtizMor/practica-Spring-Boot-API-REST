@@ -9,11 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+//La anotacion Entity sirve para que la tabla sea una entidad y se mapee a la BD
 @Entity
+
+//Nombre de la tabla
 @Table(name = "roles")
 public class Rol {
     
+    //Indica al campo que va ser unico
     @Id
     private Long rolId;
     
@@ -21,6 +24,7 @@ public class Rol {
     
     private String rolNombre;
     
+    //LAZY: Para poder obtener roles, se tiene que indicar
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
     private Set<UsuarioRol> usuarioRoles = new HashSet<>();
     

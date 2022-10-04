@@ -7,9 +7,11 @@ import com.sistemas.exmenes.entidades.JwtResponse;
 import com.sistemas.exmenes.entidades.Usuario;
 import com.sistemas.exmenes.excepciones.UsuarioNotFoundException;
 import com.sistemas.exmenes.impl.UserDetailsServiceImpl;
+
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +40,8 @@ public class AuthenticationController {
     
     @Autowired
     private JwtUtils jwtUtils;
+    
+   
     
     @PostMapping("/generate-token") //Generacion del token
     public ResponseEntity<?> generarToken(@RequestBody JwtRequest jwtRequest) throws Exception{
@@ -74,5 +78,7 @@ public class AuthenticationController {
         return (Usuario) this.userDetailsServiceImpl.loadUserByUsername(principal.getName());
         
     }
+    
+   
     
 }

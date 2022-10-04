@@ -1,4 +1,4 @@
-
+// Respuesta de la peticion del token
 package com.sistemas.exmenes.entidades;
 
 

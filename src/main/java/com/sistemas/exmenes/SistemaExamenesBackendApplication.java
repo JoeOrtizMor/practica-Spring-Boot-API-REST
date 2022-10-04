@@ -19,8 +19,10 @@ import org.springframework.web.reactive.config.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+//CommandLine: Permite ejecutar lo que esta en el metodo "run"
 public class SistemaExamenesBackendApplication implements CommandLineRunner{
     
+    //Inyectamos el servicio
     @Autowired
     private UsuarioService usuarioService;
     
@@ -34,7 +36,9 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
        
-        try{
+        
+        //Registro del Usuario admin
+        /*try{
              Usuario usuario = new Usuario();
         
         usuario.setNombre("Joe");
@@ -61,7 +65,7 @@ public class SistemaExamenesBackendApplication implements CommandLineRunner{
         }catch(UsuarioFoundException exception){
             exception.printStackTrace();
             
-        }
+        }*/
     }
     
     /*@Bean

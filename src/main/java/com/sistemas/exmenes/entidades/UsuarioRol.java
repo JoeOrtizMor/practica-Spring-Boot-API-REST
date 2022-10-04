@@ -8,13 +8,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+
+//La anotacion Entity sirve para que la tabla sea una entidad y se mapee a la BD
  @Entity
 public class UsuarioRol {
    
-   @Id
+   //Indica al campo que va ser unico
+   @Id 
+   
+   //Indica que cada ves que se haga un nuevo registro sea autoicrementable
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long usuarioRolId;
    
+   //Relacion de "Uno a muchos"
    @ManyToOne(fetch = FetchType.EAGER)
    private Usuario usuario;
    

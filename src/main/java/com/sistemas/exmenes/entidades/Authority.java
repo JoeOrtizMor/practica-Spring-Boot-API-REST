@@ -14,6 +14,7 @@ public class Authority implements GrantedAuthority{
     
     
 
+    //Metodo de autoridad
     @Override
     public String getAuthority() {
         return this.authority;
