@@ -15,7 +15,7 @@ public class EmailController {
     @Autowired
     EmailService emailService;
     
-    @GetMapping("/email/send")
+    @GetMapping()
     public ResponseEntity<?> sendEmail(){
         emailService.sendEmail();
         return new ResponseEntity<>("Correo enviado con exito",HttpStatus.OK);
