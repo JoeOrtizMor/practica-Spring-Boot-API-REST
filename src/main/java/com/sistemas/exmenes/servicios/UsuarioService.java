@@ -17,6 +17,10 @@ public interface UsuarioService {
     
     public void eliminarusuario(Long usuarioId);
     
+    public Usuario obtenerEmial(String email);
+    
+  
+   
   
     
 }

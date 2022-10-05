@@ -1,6 +1,7 @@
  
 package com.sistemas.exmenes.impl;
 
+
 import com.sistemas.exmenes.entidades.Usuario;
 import com.sistemas.exmenes.entidades.UsuarioRol;
 import com.sistemas.exmenes.excepciones.UsuarioFoundException;
@@ -9,6 +10,7 @@ import com.sistemas.exmenes.repositorios.UsuarioRepository;
 import com.sistemas.exmenes.servicios.UsuarioService;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 
@@ -61,6 +63,16 @@ public class UsuarioServiceImpl implements UsuarioService{
         //Eliminamos por ID del usuario
       usuarioRepository.deleteById(usuarioId);
     }
+
+    @Override
+    public Usuario obtenerEmial(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
+    
+ 
+
+    
 
    
     

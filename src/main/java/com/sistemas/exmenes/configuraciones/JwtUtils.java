@@ -1,4 +1,4 @@
-
+//Genera los tokens 
 package com.sistemas.exmenes.configuraciones;
 
 

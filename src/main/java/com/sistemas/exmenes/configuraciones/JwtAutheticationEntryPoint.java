@@ -10,13 +10,15 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 
-//Maneja los errores
+
+//Implementamos la clase AuthenticationEntryPoint
 @Component
 public class JwtAutheticationEntryPoint implements AuthenticationEntryPoint{
 
+    //Maneja los errores
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Usuario no autorizado");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Usuario no autorizado");//Indica que el usuario no esta autenticado
     }
     
 }

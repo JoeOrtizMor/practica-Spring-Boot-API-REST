@@ -50,7 +50,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
     }
     
     
-
+    //Configuracion de seguridad HTTP
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -60,13 +60,14 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
                 .disable()
                 .authorizeRequests()
                 .antMatchers("/swagger-ui/**","/generate-token","/usuarios/","/email/send").permitAll() //Cualquiera tiene acceso a las direcciones establecidas en el antMatchers 
-                .antMatchers(HttpMethod.OPTIONS).permitAll() //Describe opcones de comunicacion
+                .antMatchers(HttpMethod.OPTIONS).permitAll() //Describe opcones de comunicacion para el recurso de destino
                 .anyRequest().authenticated() //Cualquier otra peticion que se solicita la va a untenticar mediante el token
                 .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizeHandler) 
+                .exceptionHandling().authenticationEntryPoint(unauthorizeHandler)//Si el usuario no esta autorizado
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
+        //Validacion del token
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
                 
                 

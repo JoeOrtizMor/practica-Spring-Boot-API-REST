@@ -1,4 +1,4 @@
-//VALIDACION DE UN TOKEN
+//Comprueba la existencia del token para validarlo
 
 package com.sistemas.exmenes.configuraciones;
 
@@ -28,38 +28,43 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtil;
 
+    //Encriptacion del token
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
         String jwtToken = null;
 
+        //Si la cabezera esta vacia y no empieza con "Bearer" 
        if(requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")){
             jwtToken = requestTokenHeader.substring(7);
 
             try{
-                username = this.jwtUtil.extractUsername(jwtToken);
+                username = this.jwtUtil.extractUsername(jwtToken);//Extraermos el Ussrname
             }catch (ExpiredJwtException exception){
                 System.out.println("El token ha expirado");
             }catch (Exception e){
                 e.printStackTrace();
             }
 
-        }else{
+        }else{ 
             System.out.println("Token invalido , no empieza con bearer string");
         }
 
+       //Validacion de la peticion
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             if(this.jwtUtil.validateToken(jwtToken,userDetails)){
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+                //Indica la autenticacion del token
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }else{
             System.out.println("El token no es valido");
         }
+        //Ejecucion del filtro
         filterChain.doFilter(request,response);
     }
 }

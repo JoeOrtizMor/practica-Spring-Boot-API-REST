@@ -42,25 +42,30 @@ public class AuthenticationController {
     private JwtUtils jwtUtils;
     
    
-    
-    @PostMapping("/generate-token") //Generacion del token
+    //Generacion del token
+    @PostMapping("/generate-token") 
     public ResponseEntity<?> generarToken(@RequestBody JwtRequest jwtRequest) throws Exception{
         try{
+            
             autenticar(jwtRequest.getUsername(), jwtRequest.getPassword());
-        } catch (UsuarioNotFoundException exception) { //No se a encontrado un usuario
+            
+            //No se a encontrado un usuario
+        } catch (UsuarioNotFoundException exception) { 
             exception.printStackTrace();
             throw new Exception("Usuarios no encontrado");
         }
         
-        //
+        //Pasamos el usuario que tenemos en el token
          UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
         String token = this.jwtUtils.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
     
+    //Autenticamos el username y el password para generar el token
     private void autenticar(String username, String password) throws Exception{
         
         try{
+            //Si las datos del usuario estan correctos al hacer un login este le dara acceso al request
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)); //Verifica la autenticacion del token
         }catch(DisabledException disabledException){
             throw new Exception("USUARIO DESHABILITADO" + disabledException.getMessage());
