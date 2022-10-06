@@ -1,4 +1,4 @@
-//Comprueba la existencia del token para validarlo
+ //Comprueba la existencia del token para validarlo
 
 package com.sistemas.exmenes.configuraciones;
 
